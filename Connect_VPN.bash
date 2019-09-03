@@ -1,60 +1,55 @@
-#!/bin/bash -xv
-let COUNT=0
+#!/bin/bash
+vpncfg="PIA-USA_Random"
 
-function connectvpn {
-
+function GETCFGS {
 osascript <<EOF
 tell application "Tunnelblick"
-	connect "US Seattle"
+	get configurations
 end tell
 EOF
-
 }
-
-function disconnectvpn {
-
-osascript <<EOF2
-tell application "Tunnelblick"
-	disconnect all
+function GETSTATE {
+osascript <<EOF
+tell application "Tunnelblick"	
+	get state of first configuration where name = "$1"
 end tell
-EOF2
-
+EOF
+}
+function CONNECTVPN {
+osascript <<EOF
+tell application "Tunnelblick"	
+	connect "$1"
+end tell
+EOF
+}
+function DISCONNECTVPN {
+osascript <<EOF
+tell application "Tunnelblick"	
+	disconnect "$1"
+end tell
+EOF
+}
+function CHECKVPN {
+	for cfg in $(GETCFGS | sed 's/configuration //g' | sed 's/,//g'); do
+		if [ $cfg == "$vpncfg" ]; then
+			state="$(GETSTATE $cfg)"
+			case $state in
+				EXITING)
+					CONNECTVPN $cfg > /dev/null 2>&1
+					sleep 30
+					CHECKVPN
+				;;
+				WAIT)
+					DISCONNECTVPN $cfg > /dev/null 2>&1
+					sleep 30
+					CHECKVPN
+				;;
+				*)
+					printf "%s is %s at %s\n" "$cfg" "$state" "$(date +%F-%H%M%S%Z)"
+				;;
+			esac
+		fi
+	done
 }
 
-function getpacketloss {
-
-	LOSS="`ping -c 5 google.com | tail -n 1 | sed 's/%//g' | sed 's/ //g' | awk -F, '{printf $3\"\n\"}'`"
-
-}
-
-function checkconnection {
-
-	getpacketloss
-	if [ "$LOSS" = "100.0packetloss" ]; then
-		let COUNT=$(($COUNT + 1))
-	else
-		exit
-	fi
-
-	if [ "$COUNT" = "5" ]; then
-		reconnectvpn
-	else
-		checkconnection
-	fi
-
-}
-
-function reconnectvpn {
-
-	disconnectvpn
-	sleep 30s
-	connectvpn
-
-}
-
-function main {
-	checkconnection
-
-}
-
-main;
+CHECKVPN
