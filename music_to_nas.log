@@ -1,8 +1,0 @@
-2015/10/07 01:38:57 [60816] rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-2015/10/07 01:38:57 [60816] rsync error: unexplained error (code 255) at io.c(605) [sender=3.0.9]
-2015/10/07 01:40:33 [60867] rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-2015/10/07 01:40:33 [60867] rsync error: unexplained error (code 255) at io.c(605) [sender=3.0.9]
-2015/10/07 01:48:27 [61038] building file list
-2015/10/07 01:48:29 [61038] rsync error: unexplained error (code 255) at rsync.c(549) [sender=3.0.9]
-2015/10/07 01:49:01 [61062] building file list
-2015/10/07 01:49:04 [61062] rsync error: unexplained error (code 255) at rsync.c(549) [sender=3.0.9]
