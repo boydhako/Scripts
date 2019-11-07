@@ -1,9 +1,0 @@
-2015/10/07 01:38:34 [60777] rsync error: received SIGINT, SIGTERM, or SIGHUP (code 20) at rsync.c(549) [sender=3.0.9]
-2015/10/07 01:38:57 [60814] rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-2015/10/07 01:38:57 [60814] rsync error: unexplained error (code 255) at io.c(605) [sender=3.0.9]
-2015/10/07 01:40:33 [60865] rsync: connection unexpectedly closed (0 bytes received so far) [sender]
-2015/10/07 01:40:33 [60865] rsync error: unexplained error (code 255) at io.c(605) [sender=3.0.9]
-2015/10/07 01:42:16 [60913] building file list
-2015/10/07 01:48:27 [60913] rsync error: unexplained error (code 255) at rsync.c(549) [sender=3.0.9]
-2015/10/07 01:48:58 [61060] building file list
-2015/10/07 01:49:01 [61060] rsync error: unexplained error (code 255) at rsync.c(549) [sender=3.0.9]
